@@ -1,6 +1,14 @@
-import { Expertises } from "@/components/Expertises";
+import Expertises from "@/components/expertises/Expertises";
 import Image from "next/image";
-import Carousel, { type Slide } from "@/components/Carousel";
+import Carousel from "@/components/carousel/Carousel";
+import type { Slide } from "@/components/carousel/carousel.types";
+
+type Feature = {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+};
 
 const slides: Slide[] = [
   { src: "/citallios.png", alt: "Chantier gros œuvre" },
@@ -21,149 +29,165 @@ const slides: Slide[] = [
   { src: "/viroflay.png", alt: "Intervention dépannage" },
 ];
 
+const features: Feature[] = [
+  {
+    id: "qualite",
+    title: "Qualité d’exécution",
+    description: "Contrôles de fin de chantier et responsables dédiés.",
+    icon: "/image_6.png",
+  },
+  {
+    id: "delais",
+    title: "Respect des délais",
+    description: "Planning clair et interventions rapides.",
+    icon: "/image_6.png",
+  },
+  {
+    id: "securite",
+    title: "Sécurité & garanties",
+    description: "Assurance décennale et habilitations conformes.",
+    icon: "/image_6.png",
+  },
+  {
+    id: "eco",
+    title: "Engagement responsable",
+    description: "Tri des déchets et matériaux certifiés.",
+    icon: "/image_6.png",
+  },
+];
+
 export default function Home() {
+  const safeSlides = Array.isArray(slides) ? slides : [];
+  const safeFeatures = Array.isArray(features) ? features : [];
+
   return (
-    <main>
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10" />
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
-          {/* Texte */}
-          <div>
-            <span className="inline-block rounded-full bg-blue-50 px-3 py-1 text-sm text-blue-700">
-              20+ ans d’expérience
-            </span>
-            <h1 className="mt-4 text-4xl font-extrabold text-sybatDark md:text-5xl">
-              Travaux <span className="text-bleusybat">fiables</span>, délais
-              tenus, chantiers propres.
+    <main className="bg-white">
+      {/* =====================================================
+          HERO BTP
+      ===================================================== */}
+      <section className="relative bg-slate-900 text-white">
+        <div className="absolute inset-0">
+          <Image
+            src="/photo3.jpg"
+            alt="Chantier SYBAT"
+            fill
+            className="object-cover opacity-40"
+            priority
+          />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-4 py-24 md:py-32">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
+              Entreprise générale de bâtiment
             </h1>
-            <p className="mt-4 text-lg text-slate-600">
-              SYBAT accompagne pros & particuliers sur vos projets de
-              rénovation, maintenance et dépannage.
+
+            <p className="mt-6 text-xl font-semibold text-slate-200">
+              Rénovation · Maintenance · Tous Corps d’État
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
+
+            <p className="mt-6 text-slate-300 leading-relaxed">
+              Depuis plus de 20 ans, SYBAT accompagne collectivités, bailleurs
+              et particuliers avec rigueur, maîtrise technique et respect des
+              délais.
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-4">
               <a
                 href="/contact"
-                className="rounded-md bg-sybat px-5 py-3 font-semibold text-white hover:opacity-90"
+                className="bg-sybat px-6 py-3 font-semibold rounded-lg hover:opacity-90 transition"
               >
                 Demander un devis
               </a>
+
               <a
                 href="tel:+33147397374"
-                className="rounded-md border border-slate-300 px-5 py-3 font-semibold text-sybatDark hover:bg-slate-50"
+                className="border border-white/40 px-6 py-3 rounded-lg font-semibold hover:bg-white/10 transition"
               >
-                Nous appeler
+                01 47 39 73 74
               </a>
             </div>
-            <div className="mt-6 flex gap-8 text-sm text-slate-500">
-              <div>
-                <strong className="block text-2xl text-sybatDark">4.7/5</strong>
-                Avis Google
-              </div>
-              <div>
-                <strong className="block text-2xl text-sybatDark">
-                  1 200+
-                </strong>
-                Chantiers livrés
-              </div>
-              <div>
-                <strong className="block text-2xl text-sybatDark">10</strong>
-                Équipes terrain
-              </div>
-            </div>
-          </div>
 
-          {/* Image */}
-          <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-soft">
-            <Image
-              src="/photo3.jpg"
-              alt="Flotte et chantier SYBAT"
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
-              priority
-            />
+            <div className="mt-12 flex gap-12 text-sm text-slate-300">
+              <Stat value="20+" label="Ans d’expérience" />
+              <Stat value="1 200+" label="Chantiers réalisés" />
+              <Stat value="10" label="Équipes terrain" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* EXPERTISES */}
-      <Expertises />
+      {/* =====================================================
+          EXPERTISES
+      ===================================================== */}
+      <section className="py-24 border-b border-slate-200">
+        <Expertises />
+      </section>
 
-      {/* POURQUOI NOUS CHOISIR */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <h2 className="text-center text-3xl font-extrabold text-sybatDark">
-            Pourquoi nous choisir ?
+      {/* =====================================================
+          POURQUOI NOUS CHOISIR
+      ===================================================== */}
+      <section className="py-24 bg-slate-50">
+        <div className="mx-auto max-w-6xl px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-sybatDark">
+            Nos engagements
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
-            Des engagements concrets, mesurables, et tenus.
-          </p>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-xl border border-slate-200 p-6 shadow-sm">
-              <Image src="/image_6.png" alt="Qualité" width={60} height={60} />
-              <h3 className="text-lg font-semibold text-sybatDark">
-                Qualité de travail
-              </h3>
-              <p className="mt-2 text-slate-600">
-                Contrôles fin de chantier, photos avant/après, responsables
-                dédiés.
-              </p>
-            </div>
+          <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {safeFeatures.map((feature) => (
+              <div
+                key={feature.id}
+                className="bg-white p-8 rounded-lg shadow-sm border border-slate-200"
+              >
+                <Image
+                  src={feature.icon}
+                  alt={feature.title}
+                  width={60}
+                  height={60}
+                />
 
-            <div className="rounded-xl border border-slate-200 p-6 shadow-sm">
-              <Image src="/image_6.png" alt="Qualité" width={60} height={60} />
-              <h3 className="text-lg font-semibold text-sybatDark">
-                Délais tenus
-              </h3>
-              <p className="mt-2 text-slate-600">
-                Planning partagé, interventions urgentes {"<"}24h si contrat.
-              </p>
-            </div>
+                <h3 className="mt-6 text-lg font-semibold text-sybatDark">
+                  {feature.title}
+                </h3>
 
-            <div className="rounded-xl border border-slate-200 p-6 shadow-sm">
-              <Image src="/image_6.png" alt="Qualité" width={60} height={60} />
-              <h3 className="text-lg font-semibold text-sybatDark">
-                Sécurité & garanties
-              </h3>
-              <p className="mt-2 text-slate-600">
-                Assurance décennale, habilitations, EPI systématiques.
-              </p>
-            </div>
-
-            <div className="rounded-xl border border-slate-200 p-6 shadow-sm">
-              <Image src="/image_6.png" alt="Qualité" width={60} height={60} />
-              <h3 className="text-lg font-semibold text-sybatDark">
-                Éco-responsable
-              </h3>
-              <p className="mt-2 text-slate-600">
-                Tri des déchets, matériaux certifiés, flotte optimisée.
-              </p>
-            </div>
+                <p className="mt-3 text-slate-600">{feature.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-      {/* IL NOUS FONT CONFIANCE */}
-      <section>
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <h2 className="text-center text-3xl font-extrabold text-sybatDark">
-            Il nous font confiance
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-sybatDark">
-            Des engagements concrets, mesurables, et tenus.
-          </p>
-          <div className="mt-10 mx-auto max-w-lg">
-            <div className="relative overflow-hidden rounded-xl shadow-soft ">
-              <Carousel
-                slides={slides}
-                className="w-full h-full"
-                autoPlay
-                interval={3500}
-              />
+
+      {/* =====================================================
+          RÉFÉRENCES
+      ===================================================== */}
+      {safeSlides.length > 0 && (
+        <section className="py-24 border-t border-slate-200">
+          <div className="mx-auto max-w-6xl px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-sybatDark">
+              Ils nous font confiance
+            </h2>
+
+            <div className="mt-12 mx-auto max-w-lg">
+              <div className="rounded-lg shadow-md bg-white p-6">
+                <Carousel slides={safeSlides} autoPlay interval={3500} />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </main>
+  );
+}
+
+/* =========================================================
+   STAT
+========================================================= */
+
+function Stat({ value, label }: { value: string; label: string }) {
+  return (
+    <div>
+      <strong className="block text-2xl text-white">{value}</strong>
+      <span className="text-slate-400">{label}</span>
+    </div>
   );
 }

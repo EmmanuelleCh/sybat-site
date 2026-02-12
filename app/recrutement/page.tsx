@@ -1,4 +1,4 @@
-import RecruitmentForm from "@/components/RecruitmentForm";
+import RecruitmentForm from "@/components/recrutement/RecruitmentForm";
 
 export default function RecrutementPage() {
   return (

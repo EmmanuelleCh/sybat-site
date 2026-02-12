@@ -2,66 +2,110 @@ import Image from "next/image";
 
 export default function About() {
   return (
-    <main>
-      <section className="relative h-64 w-full">
-        <Image
-          src="/Devant-Sybat.jpg"
-          alt="Flotte et chantier SYBAT"
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          priority
-        />
+    <main className="bg-white text-slate-800">
+      {/* =====================================================
+          HERO BTP
+      ===================================================== */}
+      <section className="relative bg-slate-900 text-white">
+        <div className="absolute inset-0">
+          <Image
+            src="/Devant-Sybat.jpg"
+            alt="Flotte et chantier SYBAT"
+            fill
+            className="object-cover opacity-40"
+            priority
+          />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-4 py-24 md:py-32">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
+              À propos de SYBAT
+            </h1>
+
+            <p className="mt-6 text-xl text-slate-200">
+              Une entreprise générale de bâtiment implantée à Gennevilliers
+              depuis plus de 20 ans.
+            </p>
+          </div>
+        </div>
       </section>
 
-      <section>
-        <div>
-          <h1 className="text-3xl font-bold mb-6 mt-6 text-center text-sybat">
-            À propos de Sybat
-          </h1>
+      {/* =====================================================
+          HISTOIRE
+      ===================================================== */}
+      <section className="py-24 border-b border-slate-200">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-3xl font-extrabold text-sybatDark mb-10">
+            Notre histoire
+          </h2>
+
+          <div className="space-y-8 leading-relaxed text-lg">
+            <p>
+              Créée en 1994 sous le nom de SYBAT ARTISAN, l’entreprise devient
+              EURL SYBAT en 1999. D’abord spécialisée en gros œuvre, elle
+              développe progressivement une organisation lui permettant de
+              maîtriser l’ensemble des travaux de second œuvre et de finition.
+            </p>
+
+            <p>
+              Le 1er octobre 2012, SYBAT absorbe la SARL DPEC (plomberie,
+              chauffage et couverture), renforçant ainsi sa capacité à proposer
+              une gestion complète des chantiers sans recours systématique à des
+              prestataires externes.
+            </p>
+
+            <p>
+              En novembre 2013, la société adopte la forme juridique de SAS,
+              consolidant sa structure et son organisation interne.
+            </p>
+
+            <p>
+              Le siège social est situé au 45 rue du Pont d’Argenteuil, 92230
+              Gennevilliers. Bureaux administratifs, dépôt, ateliers et bureaux
+              techniques (1 561 m²) regroupent l’ensemble du matériel, des
+              véhicules et des équipes.
+            </p>
+
+            <p className="font-semibold text-sybatDark">
+              Cette implantation stratégique permet d’intervenir rapidement et
+              efficacement sur les chantiers les plus urgents.
+            </p>
+          </div>
         </div>
-        <div className="">
-          <p className="m-10 opacity-85">
-            A sa création en 1994, SYBAT ARTISAN a évolué au fil du temps pour
-            devenir EURL SYBAT en 1999 et avait pour objet l’exécution de gros
-            œuvres de maçonnerie. Elle a progressée pour se doter d’une
-            structure très polyvalente, lui permettant d’assurer les exécutions
-            de second œuvre et de finition.{" "}
-          </p>
+      </section>
 
-          <p className="m-10 opacity-85">
-            ar ailleurs, le 1er Octobre 2012 l’entreprise SYBAT a procéder à
-            l’absorbation de la SARL DPEC (Entreprise de plomberie, chauffage et
-            couverture) Cette fusion nous permet d’assurer la réalisation de
-            travaux diversifiés, ce qui évite le recours à d’autres prestataires
-            dans le cas d’une prise en compte global d’un chantier.{" "}
-          </p>
+      {/* =====================================================
+          QUALIFICATIONS
+      ===================================================== */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="mb-16 text-center">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-sybatDark">
+              Nos qualifications
+            </h2>
 
-          <p className="m-10 opacity-85">
-            En Novembre 2013 notre société change de forme juridique pour
-            devenir une Société à Action Simplifiée SAS.{" "}
-          </p>
+            <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+              Des habilitations et certifications garantissant sécurité,
+              conformité réglementaire et qualité d’exécution.
+            </p>
+          </div>
 
-          <p className="m-10 opacity-85">
-            Ses bureaux : situés au 45 rue du Pont d’Argenteuil 92 230
-            GENNEVILLIERS, en constitue le Siège Social. C’est à cet endroit que
-            sont traités toutes les opérations et procédures administratives
-            engagées par l’Entreprise et ses tiers avec la présence permanent
-            d’un collaborateur.{" "}
-          </p>
-
-          <p className="m-10 opacity-85">
-            A la même adresse se trouve également notre dépôt, ateliers et
-            bureaux techniques, d’une superficie de 1561 m², abritant quand à
-            lui l’intégralité du matériel et des véhicules. Il sert également au
-            stockage des matériaux. C’est également ici que se trouve l’atelier
-            de l’Entreprise.
-          </p>
-
-          <p className="m-10 opacity-85">
-            Notre implantation géographique nous permet de répondre aux
-            interventions les plus urgentes dans les plus brefs délais.
-          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {[
+              "QUALIGAZ – Habilitation de conformité gaz",
+              "HANDIBAT – Accessibilité et aménagement PMR",
+              "QUALIBAT – Références 2141 – 5111 – 6311",
+              "AFPA – Formation professionnelle continue",
+              "FCIO – Formation amiante",
+              "AFT-IFTIM – Sécurité incendie, habilitations électriques, CACES, SST",
+            ].map((item, index) => (
+              <div key={index} className="bg-white border border-slate-200 p-8">
+                <div className="w-12 h-1 bg-sybat mb-6" />
+                <p className="font-medium text-slate-800">{item}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </main>
