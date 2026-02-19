@@ -13,9 +13,7 @@ export default function Carousel({
   showArrows = true,
   rounded = true,
 }: CarouselProps) {
-  if (!Array.isArray(slides) || slides.length === 0) return null;
-
-  const count = slides.length;
+  const count = Array.isArray(slides) ? slides.length : 0;
   const safeInterval = Math.max(interval, 1000);
 
   const [index, setIndex] = React.useState(0);
@@ -23,13 +21,21 @@ export default function Carousel({
 
   const goTo = React.useCallback(
     (i: number) => {
+      if (count === 0) return;
       setIndex(((i % count) + count) % count);
     },
     [count]
   );
 
-  const next = React.useCallback(() => goTo(index + 1), [goTo, index]);
-  const prev = React.useCallback(() => goTo(index - 1), [goTo, index]);
+  const next = React.useCallback(() => {
+    if (count === 0) return;
+    goTo(index + 1);
+  }, [goTo, index, count]);
+
+  const prev = React.useCallback(() => {
+    if (count === 0) return;
+    goTo(index - 1);
+  }, [goTo, index, count]);
 
   React.useEffect(() => {
     if (!autoPlay || count <= 1) return;
@@ -41,21 +47,19 @@ export default function Carousel({
     return () => clearInterval(id);
   }, [autoPlay, count, safeInterval]);
 
+  if (count === 0) return null;
+
   return (
     <div
       ref={containerRef}
       tabIndex={0}
       aria-roledescription="carousel"
       aria-label="Carrousel d'images"
-      className={clsx(
-        "relative mx-auto w-full max-w-xl", // 🔥 largeur limitée
-        className
-      )}
+      className={clsx("relative mx-auto w-full max-w-xl", className)}
     >
-      {/* Viewport */}
       <div
         className={clsx(
-          "overflow-hidden w-full h-64 sm:h-72 md:h-80", // 🔥 hauteur contrôlée
+          "overflow-hidden w-full h-64 sm:h-72 md:h-80",
           rounded && "rounded-2xl shadow-sm"
         )}
       >
@@ -83,7 +87,6 @@ export default function Carousel({
         </div>
       </div>
 
-      {/* Flèches */}
       {showArrows && count > 1 && (
         <>
           <button
@@ -103,7 +106,6 @@ export default function Carousel({
         </>
       )}
 
-      {/* Indicateurs */}
       {showIndicators && count > 1 && (
         <div className="absolute inset-x-0 bottom-3 flex justify-center gap-2">
           {slides.map((_, i) => (
